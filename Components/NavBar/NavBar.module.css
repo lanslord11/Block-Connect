@@ -5,10 +5,23 @@
 }
 
 .NavBar_box {
+  background: #292F3F;
+    
+    border-radius: 36px;
   display: grid;
   grid-template-columns: 1fr 1.7fr;
   align-items: center;
   gap: 2rem;
+  animation: shadowAppear 1s ease-out forwards;
+}
+
+@keyframes shadowAppear {
+  0% {
+    box-shadow: none;
+  }
+  100% {
+    box-shadow: 20px 20px 60px #191d27, -20px -20px 60px #394157;
+  }
 }
 
 .NavBar_box_right {
@@ -40,7 +53,7 @@
   background-color: rgba(0, 0, 0, 0.25);
   padding: 1rem;
   border: none;
-  border-radius: 0.5rem;
+  border-radius: 0 30px 30px 0;
   font-size: 1.1rem;
   color: #f18303;
   font-weight: 700;

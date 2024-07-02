@@ -156,3 +156,22 @@ background: #292F3F;
     margin: 1vmax;
   }
 }
+
+@keyframes fadeinout {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-content {
+  animation: fadeinout 0.6s ease-in-out;
+}

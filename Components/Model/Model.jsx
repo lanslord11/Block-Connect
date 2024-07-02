@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 //INTERNAL IMPORT
 import Style from "./Model.module.css";
@@ -33,6 +34,36 @@ const Model = ({
             <span>{head}</span>
           </h1>
           <p className={Style.warning}>{info}</p>
+          <p className={Style.links}>
+            <p>Usefull LINKS:</p>
+            <div className={Style.linkContainer}>
+            <Link  href="https://support.polygon.technology/support/solutions/articles/82000907114-how-to-add-amoy-network-in-your-wallet-">
+            • How to connect Polygon amoy to metamask&nbsp;&nbsp;
+            </Link>
+            <Image
+                  src="/linkicon.png"
+                  alt="user"
+                  width={20}
+                  height={20}
+                  className={Style.colorChange}
+                />
+            </div>
+            <div >
+            <Link href="https://faucet.polygon.technology/">
+            • Polygon free Faucet using discord&nbsp;&nbsp;
+            </Link>
+            <Image
+                  src="/linkicon.png"
+                  alt="user"
+                  width={20}
+                  height={20}
+                  className={Style.colorChange}
+
+                />
+            </div>
+            
+            
+          </p>
           <small>{smallInfo}</small>
 
           {loading == true ? (

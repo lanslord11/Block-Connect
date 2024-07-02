@@ -36,13 +36,32 @@ const NavBar = () => {
   //USESTATE
   const [active, setActive] = useState(1);
   const [open, setOpen] = useState(false);
-  const [openModel, setOpenModel] = useState(false);
+  const [openModel, setOpenModel] = useState(true);
 
   const { account, userName, connectWallet, createAccount, error } =
     useContext(ChatAppContext);
+  useEffect(() => {
+    if (userName ) {
+      setOpenModel(false);
+    }
+  }, [userName]);
+
 
   return (
     <div className={Style.NavBar}>
+      {/* <div  style={{display:`${userName?"none":""}`,width:"100vw",height:"100vh",position:"fixed",top:"0",left:"0",backgroundColor:"white",zIndex:"1"}}>
+      <button onClick={() => setOpenModel(true)}>
+                {""}
+                <Image
+                  src={userName ? images.accountName : images.create2}
+                  alt="Account image"
+                  width={20}
+                  height={20}
+                />
+                {""}
+                <small>{userName || "Create Account"}</small>
+              </button>
+      </div> */}
       <div className={Style.NavBar_box}>
         <div className={Style.NavBar_box_left}>
           <Image src={images.logo} alt="logo" width={50} height={50} />
@@ -133,7 +152,7 @@ const NavBar = () => {
           <Model
             openBox={setOpenModel}
             title="WELCOME TO"
-            head="BLOCK-KONNECT"
+            head="BLOCK-CONNECT"
             info="BEFORE SUBMITTING PLEASE ENSURE YOU HAVE METAMASK INSTALLED , SELECTED THE POLYGON AMOY NETWORK , CONNECTED TO THE WALLET AND HAVE ENOUGH MATIC "
             smallInfo="kindly select your name..."
             image={images.hero}
