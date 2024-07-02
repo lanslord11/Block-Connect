@@ -25,8 +25,8 @@ const allPosts = () => {
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
           data: formData,
           headers: {
-            pinata_api_key: `5e87e84f1cdff15bae89`,
-            pinata_secret_api_key: `5ef3bf1ccafc4bf35d228721811475bafa0da993e4858546c2bd174c3f049d78`,
+            pinata_api_key: process.env.NEXT_PUBLIC_PINATA_API_KEY,
+            pinata_secret_api_key: process.env.NEXT_PUBLIC_PINATA_SECRET_API_KEY,
             "Content-Type": "multipart/form-data",
           },
         });

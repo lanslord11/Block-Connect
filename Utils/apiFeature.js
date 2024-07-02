@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import Web3Modal from "web3modal";
 
-import { ChatAppAddress, ChatAppABI } from "../Context/constants";
+import {  ChatAppABI } from "../Context/constants";
 
 export const CheckIfWalletConnected = async () => {
   try {
@@ -30,7 +30,7 @@ export const connectWallet = async () => {
 };
 
 const fetchContract = (signerOrProvider) =>
-  new ethers.Contract(ChatAppAddress, ChatAppABI, signerOrProvider);
+  new ethers.Contract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, ChatAppABI, signerOrProvider);
 
 export const connectingWithContract = async () => {
   try {
@@ -38,7 +38,7 @@ export const connectingWithContract = async () => {
     const connection = await web3modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
-    const contract = new ethers.Contract(ChatAppAddress, ChatAppABI, signer);
+    const contract = new ethers.Contract(process.env.NEXT_PUBLIC_CONTRACT_ADDRESS, ChatAppABI, signer);
     return contract;
   } catch (error) {
     console.log("error connecting with the smart contract");

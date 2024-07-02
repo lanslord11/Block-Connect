@@ -108,7 +108,7 @@ const PostCard = ({
           <div>{post.caption}</div>
         </div>
         <div className={Style.PostCard_img}>
-          <img src={`https://tomato-electric-impala-477.mypinata.cloud/ipfs/${post.cid}?pinataGatewayToken=sBshdHLgqpMGWHAgS2Cs0hcA5knKi4aa6ZM0cuZASdaqZtyLmELrb_dfk9ydQsFg`} alt="" />
+          <img src={`https://tomato-electric-impala-477.mypinata.cloud/ipfs/${post.cid}?pinataGatewayToken=${process.env.NEXT_PUBLIC_PINATA_GATEWAY_TOKEN}`} alt="" />
         </div>
         <div className={Style.sponserBox}>
           <button className={Style.sponserButton} onClick={onClickHandler}>

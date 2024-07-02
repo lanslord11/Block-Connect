@@ -38,8 +38,8 @@ const Filter = () => {
           <Model
             openBox={setAddFriend}
             title="WELCOME TO"
-            head="CHAT BUDDY"
-            info="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Unde recusandae, voluptatum dolorum molestiae voluptas, autem eum expedita soluta quisquam aperiam quae ratione, suscipit necessitatibus magnam deserunt voluptates. Ullam, ut nisi."
+            head="BLOCK-CONNECT"
+            info=""
             smallInfo="Kindly Select your Friend Name and Address.."
             image={images.hero}
             functionName={addFriends}
