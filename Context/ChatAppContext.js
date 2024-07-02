@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-
+import { ethers } from "ethers";
 import {
   CheckIfWalletConnected,
   connectWallet,
@@ -19,6 +19,7 @@ export const ChatAppProvider = ({ children }) => {
   const [loading, setLoading] = useState(false);
   const [userLists, setUserLists] = useState([]);
   const [error, setError] = useState("");
+  const [allPosts, setAllPosts] = useState([]);
 
   //CHAT USER DATA
 
@@ -120,9 +121,94 @@ export const ChatAppProvider = ({ children }) => {
     setCurrentUserName(userName);
   };
 
+  //CREATE POST
+  const createPost = async (cid, caption) => {
+    try {
+      // if (msg || address) return setError("please type your message");
+      const contract = await connectingWithContract();
+      const addMessage = await contract.createPost(cid, caption);
+      setLoading(true);
+      await addMessage.wait();
+      setLoading(false);
+      window.location.reload("/allPosts");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //ALL POSTS
+  const getAllPosts = async () => {
+    try {
+      const contract = await connectingWithContract();
+      const posts = await contract.getAllPosts();
+      setAllPosts(posts);
+      console.log(posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //LIKE POST
+  const likePost = async (postId) => {
+    try {
+      const contract = await connectingWithContract();
+      const like = await contract.likePost(postId);
+      await like.wait();
+      window.location.reload("/allPosts");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //DISLIKE POST
+  const dislikePost = async (postId) => {
+    try {
+      const contract = await connectingWithContract();
+      const dislike = await contract.dislikePost(postId);
+      await dislike.wait();
+      window.location.reload("/allPosts");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //UNLIKE POST
+  const unlikePost = async (postId) => {
+    try {
+      const contract = await connectingWithContract();
+      const unLike = await contract.unlikePost(postId);
+      await unLike.wait();
+      window.location.reload("/allPosts");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  //MAKE PAYMENT TO ACCOUNT
+  const transfer = async (amount, address) => {
+    try {
+      await window.ethereum.enable();
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const recipientAddress = address;
+      const amountToSend = ethers.utils.parseEther(amount); // Sending 0.1 ETH
+      console.log(recipientAddress, amountToSend);
+      const transaction = {
+        to: recipientAddress,
+        value: amountToSend.toHexString(),
+      };
+
+      await provider.send("eth_sendTransaction", [transaction]);
+      console.log("Transaction initiated");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <ChatAppContext.Provider
       value={{
+        transfer,
+        unlikePost,
         readMessage,
         createAccount,
         addFriends,
@@ -130,6 +216,8 @@ export const ChatAppProvider = ({ children }) => {
         readUser,
         connectWallet,
         CheckIfWalletConnected,
+        createPost,
+        getAllPosts,
         account,
         userName,
         friendLists,
@@ -139,6 +227,9 @@ export const ChatAppProvider = ({ children }) => {
         error,
         currentUserName,
         currentUserAddress,
+        allPosts,
+        likePost,
+        dislikePost,
       }}
     >
       {children}

@@ -29,8 +29,12 @@ import image7 from "./img7.gif";
 import image8 from "./img8.gif";
 import image9 from "./img9.gif";
 import image10 from "./img10.gif";
+import upArrow from "./upArrow.png";
+import caption from "./caption.png";
+import eth from "./eth.png";
 
 export default {
+  eth,
   logo,
   close,
   open,
@@ -62,4 +66,6 @@ export default {
   image8,
   image9,
   image10,
+  upArrow,
+  caption,
 };

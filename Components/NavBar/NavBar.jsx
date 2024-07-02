@@ -11,33 +11,30 @@ import images from "../../assets";
 const NavBar = () => {
   const menuItems = [
     {
+      menu: "Home",
+      link: "/",
+    },
+    {
       menu: "All Users",
       link: "alluser",
     },
     {
       menu: "CHAT",
-      link: "/",
+      link: "/chat",
     },
+
     {
-      menu: "CONTACT",
-      link: "/",
-    },
-    {
-      menu: "SETTING",
-      link: "/",
+      menu: "Create Post",
+      link: "/createPost",
     },
     {
       menu: "FAQ",
-      link: "/",
-    },
-    {
-      menu: "TERMS OF USE",
-      link: "/",
+      link: "/faq",
     },
   ];
 
   //USESTATE
-  const [active, setActive] = useState(2);
+  const [active, setActive] = useState(1);
   const [open, setOpen] = useState(false);
   const [openModel, setOpenModel] = useState(false);
 
@@ -136,9 +133,8 @@ const NavBar = () => {
           <Model
             openBox={setOpenModel}
             title="WELCOME TO"
-            head="CHAT BUDDY"
-            info="
-Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim cum atque quasi, beatae iste nostrum doloremque quo accusamus nulla ad quia libero, tenetur nemo neque. Esse soluta modi blanditiis officia."
+            head="BLOCK-KONNECT"
+            info="BEFORE SUBMITTING PLEASE ENSURE YOU HAVE METAMASK INSTALLED , SELECTED THE POLYGON AMOY NETWORK , CONNECTED TO THE WALLET AND HAVE ENOUGH MATIC "
             smallInfo="kindly select your name..."
             image={images.hero}
             functionName={createAccount}

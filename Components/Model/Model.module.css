@@ -68,6 +68,17 @@
   cursor: pointer;
 }
 
+.warning{
+  color: red;
+  animation : blinker 2s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media only screen and (max-width: 34em) {
   .Model {
     width: 95%;

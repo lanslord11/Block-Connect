@@ -1,0 +1,47 @@
+.createPost_info {
+  width: 80%;
+  margin: 4rem auto;
+  font-size: 1.5rem;
+}
+
+.createPost {
+  width: 80%;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+}
+
+.createPost form {
+  background-color: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 45px 80px;
+  display: flex;
+  gap: 20px;
+}
+
+.createPost form > div {
+  background-color: #3a3a3aab;
+  padding: 12px;
+  border-radius: 8px;
+  display: flex;
+  width: 400px;
+}
+
+.createPost form input {
+  color: white;
+  background: none;
+  border: none;
+  outline: none;
+}
+.createPost form button {
+  background: rgb(90 87 87 / 48%);
+  border: none;
+  border-radius: 10px;
+  color: #f18303;
+  width: 152px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+}

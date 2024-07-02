@@ -13,7 +13,7 @@ const Card = ({ readMessage, el, i, readUser }) => {
   return (
     <Link
       href={{
-        pathname: "/",
+        pathname: "/chat",
         query: { name: `${el.name}`, address: `${el.pubkey}` },
       }}
     >

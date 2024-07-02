@@ -30,9 +30,9 @@ const Model = ({
         <div className={Style.Model_box_right}>
           <h1>
             {title}
-            <span>head</span>
+            <span>{head}</span>
           </h1>
-          <p>{info}</p>
+          <p className={Style.warning}>{info}</p>
           <small>{smallInfo}</small>
 
           {loading == true ? (

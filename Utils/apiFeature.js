@@ -50,9 +50,9 @@ export const convertTime = (time) => {
   const newTime = new Date(time.toNumber());
   const realTime =
     newTime.getHours() +
-    "/" +
+    ":" +
     newTime.getMinutes() +
-    "/" +
+    ":" +
     newTime.getSeconds() +
     " Date:" +
     newTime.getDate() +

@@ -30,6 +30,27 @@ contract ChatApp{
     mapping(address => user ) userList;
     mapping(bytes32 => message[]) allMessages;
 
+    struct post{
+        uint pid;
+        address owner;
+        string cid;
+        string caption;
+        uint256 timestamp;
+        address[] likes;
+        address[] dislikes;
+    }
+
+    // struct comment{
+    //     address owner;
+    //     string comment;
+    //     uint256 timestamp;
+    // }
+
+    uint postNo = 0;
+    mapping(uint => post) allPosts;
+    mapping(address => uint[]) userPosts;
+
+
     //CHECK USER EXIST
 
     function checkUserExists ( address pubkey ) public view returns (bool ) {
@@ -118,4 +139,113 @@ contract ChatApp{
         return getAllUsers;
     }
 
+
+    //CREATE POST
+    function createPost(string calldata _cid,string calldata _caption) external{
+        require(checkUserExists(msg.sender)==true,"Create an account first");
+        require(bytes(_cid).length>0,"CID cannot be empty");
+        require(bytes(_caption).length>0,"Caption cannot be empty");
+        post memory newPost = post(postNo,msg.sender,_cid,_caption,block.timestamp,new address[](0),new address[](0));
+        allPosts[postNo] = newPost;
+        userPosts[msg.sender].push(postNo);
+        postNo++;
+    }
+
+    //GET ALL POSTS
+    function getAllPosts() external view returns(post[] memory){
+        post[] memory posts = new post[](postNo);
+        for(uint i = 0 ; i<postNo ; i++){
+            if(allPosts[i].dislikes.length*3<getAllUsers.length)
+            posts[i] = allPosts[i];
+        }
+        return posts;
+    }
+
+    //GET USER POSTS
+    function getUserPosts(address pubkey) external view returns(post[] memory){
+        require(checkUserExists(pubkey)==true,"User is not registered");
+        uint[] memory userPost = userPosts[pubkey];
+        post[] memory posts = new post[](userPost.length);
+        for(uint i = 0 ; i<userPost.length ; i++){
+            posts[i] = allPosts[userPost[i]];
+        }
+        return posts;
+    }
+
+    //LIKE POST
+    function likePost(uint _postNo) external{
+        require(checkUserExists(msg.sender)==true,"Create an account first");
+        require(_postNo<postNo,"Post does not exist");
+        require(checkAlreadyLiked(_postNo,msg.sender)==false,"You have already liked the post");
+        allPosts[_postNo].likes.push(msg.sender);
+    }
+
+    //UNLIKE POST
+    function unlikePost(uint _postNo) external{
+        require(checkUserExists(msg.sender)==true,"Create an account first");
+        require(_postNo<postNo,"Post does not exist");
+        require(checkAlreadyLiked(_postNo,msg.sender)==true,"You have not liked the post");
+        address[] memory likes = allPosts[_postNo].likes;
+        for(uint i = 0 ; i<likes.length ; i++){
+            if(likes[i]==msg.sender){
+                delete allPosts[_postNo].likes[i];
+                break;
+            }
+        }
+    }
+
+    //DISLIKE POST
+    function dislikePost(uint _postNo) external{
+        require(checkUserExists(msg.sender)==true,"Create an account first");
+        require(_postNo<postNo,"Post does not exist");
+        require(checkAlreadyDisliked(_postNo,msg.sender)==false,"You have already disliked the post");
+        allPosts[_postNo].dislikes.push(msg.sender);
+    }
+
+    //UNDISLIKE POST
+    function undislikePost(uint _postNo) external{
+        require(checkUserExists(msg.sender)==true,"Create an account first");
+        require(_postNo<postNo,"Post does not exist");
+        require(checkAlreadyDisliked(_postNo,msg.sender)==true,"You have not disliked the post");
+        address[] memory dislikes = allPosts[_postNo].dislikes;
+        for(uint i = 0 ; i<dislikes.length ; i++){
+            if(dislikes[i]==msg.sender){
+                delete allPosts[_postNo].dislikes[i];
+                break;
+            }
+        }
+    }
+
+    //CHECK ALREADY LIKED
+    function checkAlreadyLiked(uint _postNo,address pubkey) internal view returns(bool){
+        address[] memory likes = allPosts[_postNo].likes;
+        for(uint i = 0 ; i<likes.length ; i++){
+            if(likes[i]==pubkey)return true;
+        }
+        return false;
+    }
+
+    //CHECK ALREADY DISLIKED
+    function checkAlreadyDisliked(uint _postNo,address pubkey) internal view returns(bool){
+        address[] memory dislikes = allPosts[_postNo].dislikes;
+        for(uint i = 0 ; i<dislikes.length ; i++){
+            if(dislikes[i]==pubkey)return true;
+        }
+        return false;
+    }
+
+    //COMMENT ON POST
+    // function commentOnPost(uint _postNo,string calldata _comment) external{
+    //     require(checkUserExists(msg.sender)==true,"Create an account first");
+    //     require(_postNo<postNo,"Post does not exist");
+    //     require(bytes(_comment).length>0,"Comment cannot be empty");
+    //     //giving newComment memory is giving error UnimplementedFeatureError: Copying of type struct ChatApp.comment memory[] memory to storage not yet supported.
+    //     comment memory newComment = comment(msg.sender,_comment,block.timestamp);
+    //     allPosts[_postNo].comments.push(newComment);
+    //     // userPosts[msg.sender].push(_postNo);
+    // }
+
 }
+
+
+

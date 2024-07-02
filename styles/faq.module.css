@@ -1,0 +1,11 @@
+.padding  > div  { 
+    margin : 7px;
+}
+
+.padding { 
+    display: flex
+}
+
+.pointer{
+    cursor: pointer;
+}

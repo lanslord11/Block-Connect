@@ -113,8 +113,11 @@ const Chat = ({
                   alt="file"
                   width={50}
                   height={50}
-                  onClick={() =>
+                  onClick={() =>{
+                    console.log("I am running");
                     functionName({ msg: message, address: chatData.address })
+                  }
+                    
                   }
                 />
               )}
