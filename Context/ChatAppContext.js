@@ -139,7 +139,7 @@ export const ChatAppProvider = ({ children }) => {
 
   //CREATE POST
   const createPost = async (cid, caption) => {
-    try {
+    
       // if (msg || address) return setError("please type your message");
       const contract = await connectingWithContract();
       const addMessage = await contract.createPost(cid, caption);
@@ -147,9 +147,7 @@ export const ChatAppProvider = ({ children }) => {
       await addMessage.wait();
       setLoading(false);
       window.location.reload("/allPosts");
-    } catch (error) {
-      console.log(error);
-    }
+    
   };
 
   //ALL POSTS

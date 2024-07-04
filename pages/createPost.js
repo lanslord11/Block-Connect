@@ -39,13 +39,14 @@ const allPosts = () => {
         // contract.add(account, ImgHash);
         toast("Successfully Image Uploaded to Pinata");
         toast("Creating Post...")
-        createPost(cid, caption).then(() => {toast("Post Created Successfully")});
+        await createPost(cid, caption);
+        toast("Post Created Successfully");
         // console.log(ImgHash);
         setFileName("No Image Selected");
         setFile(null);
       } catch (e) {
         console.log(e);
-        toast("Unable to upload to Pinata");
+        toast("Unable to create post");
       }
     }
   };
