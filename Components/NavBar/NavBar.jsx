@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext,useLayoutEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -36,15 +36,40 @@ const NavBar = () => {
   //USESTATE
   const [active, setActive] = useState(1);
   const [open, setOpen] = useState(false);
-  const [openModel, setOpenModel] = useState(true);
+  const [openModel, setOpenModel] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const { account, userName, connectWallet, createAccount, error } =
     useContext(ChatAppContext);
-  useEffect(() => {
-    if (userName ) {
-      setOpenModel(false);
+
+    useLayoutEffect(() => {
+      setMounted(true);
+      setOpenModel(true);
+    }, []);
+  
+    useEffect(() => {
+      if (mounted && userName) {
+        setOpenModel(false);
+      }
+    }, [userName, mounted]);
+  
+    if (!mounted) {
+      return null; // or a loading indicator
     }
-  }, [userName]);
+  // useEffect(() => {
+  //   // This function runs only on the client side
+  // // const handleUserNameChange = () => {
+  // //   if (userName) {
+  // //     setOpenModel(false);
+  // //   }
+  // // };
+
+  // // Check if window is defined to ensure code runs only on client side
+  // // if (typeof window !== "undefined") {
+  // //   handleUserNameChange();
+  // // }
+  // }, [userName]);
+  
 
 
   return (

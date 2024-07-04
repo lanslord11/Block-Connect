@@ -16,9 +16,56 @@ export const CheckIfWalletConnected = async () => {
   }
 };
 
+const networkParams = {
+  chainId: '0x13882', // 0x13882 is the hexadecimal equivalent of 80002
+  chainName: 'POLYGON AMOY TESTNET',
+  nativeCurrency: {
+    name: 'MATIC',
+    symbol: 'MATIC',
+    decimals: 18,
+  },
+  rpcUrls: ['https://rpc-amoy.polygon.technology/'],
+  blockExplorerUrls: ['https://www.oklink.com/amoy'],
+};
+
+async function addNetworkAndSwitch(networkParams) {
+  try {
+    if (!window.ethereum) {
+      throw new Error("MetaMask is not installed!");
+    }
+
+    console.log("Attempting to add network with params:", networkParams);
+
+    // Request to add the custom network to MetaMask
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [networkParams],
+    });
+
+    console.log("Network added successfully, attempting to switch...");
+
+    // Switch to the newly added network
+    await window.ethereum.request({
+      method: 'wallet_switchEthereumChain',
+      params: [{ chainId: networkParams.chainId }],
+    });
+
+    console.log("Switched to new network successfully");
+  } catch (error) {
+    console.error('Error adding or switching network:', error);
+    if (error.code === 4001) {
+      console.log("User rejected the request");
+    }
+  }
+}
+
+// Example network parameters (adjust these for your specific network)
+
+
 export const connectWallet = async () => {
   try {
     if (!window.ethereum) return console.log("Install MetaMask");
+    await addNetworkAndSwitch(networkParams);
     const accounts = await window.ethereum.request({
       method: "eth_requestAccounts",
     });

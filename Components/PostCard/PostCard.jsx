@@ -4,6 +4,7 @@ import images from "../../assets/index";
 import Image from "next/image";
 import { ethers } from "ethers";
 
+
 //INTERNAL IMPORT
 import Style from "./PostCard.module.css";
 // const { likePost } = useContext(ChatAppContext);
@@ -26,6 +27,7 @@ const PostCard = ({
   // console.log(account);
   // console.log(post.pid.toNumber());
   useEffect(() => {
+    
     for (let i = 0; i < post.likes.length; i++) {
       if (post.likes[i].toLowerCase() == account) {
         setLiked(true);

@@ -6,6 +6,7 @@ import Image from "next/image";
 import Style from "../styles/createPost.module.css";
 import { ChatAppContext } from "../Context/ChatAppContext";
 import images from "../assets";
+import {  toast } from 'react-toastify';
 
 const allPosts = () => {
   const { userLists, addFriends, createPost } = useContext(ChatAppContext);
@@ -19,6 +20,8 @@ const allPosts = () => {
         const formData = new FormData();
 
         formData.append("file", file);
+
+        toast("Uploading Image to Pinata...");
 
         const resFile = await axios({
           method: "post",
@@ -34,14 +37,15 @@ const allPosts = () => {
         const cid = resFile.data.IpfsHash;
         // const signer = contract.connect(provider.getSigner());
         // contract.add(account, ImgHash);
-        createPost(cid, caption);
+        toast("Successfully Image Uploaded to Pinata");
+        toast("Creating Post...")
+        createPost(cid, caption).then(() => {toast("Post Created Successfully")});
         // console.log(ImgHash);
-        alert("Successfully Image Uploaded");
         setFileName("No Image Selected");
         setFile(null);
       } catch (e) {
         console.log(e);
-        alert("Unable to upload to Pinata");
+        toast("Unable to upload to Pinata");
       }
     }
   };

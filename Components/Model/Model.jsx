@@ -87,6 +87,7 @@ const Model = ({
                 <Image src={images.account} alt="user" width={30} height={30} />
                 <input
                   type="text"
+                  disabled={address ? true : false}
                   placeholder={address || "enter address"}
                   onChange={(e) => setAccountAddress(e.target.value)}
                 />

@@ -7,6 +7,7 @@ import {
   connectingWithContract,
 } from "../Utils/apiFeature";
 
+
 export const ChatAppContext = React.createContext();
 
 export const ChatAppProvider = ({ children }) => {
@@ -50,9 +51,24 @@ export const ChatAppProvider = ({ children }) => {
     }
   };
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useEffect( () => {
+    // await addNetworkAndSwitch();
+    
+    if(window.ethereum) {    
+      window.ethereum.on('chainChanged', () => {
+      window.location.reload();
+      })    
+      window.ethereum.on('accountsChanged', () => {
+      window.location.reload();
+    })}
+
+
+     fetchData();
+  }, [account]);
+
+  //ADD NETWORK AND SWITCH TO THAT NETWORK 
+  
+  
 
   //READ MESSAGE
   const readMessage = async (friendAddress) => {

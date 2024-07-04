@@ -21,11 +21,11 @@ const Filter = () => {
           </div>
         </div>
         <div className={Style.Filter_box_right}>
-          <button>
+          <button style={{cursor:"pointer"}}>
             <Image src={images.clear} alt="clear" width={20} height={20} />
             CLEAR CHAT
           </button>
-          <button onClick={() => setAddFriend(true)}>
+          <button style={{cursor:"pointer"}} onClick={() => setAddFriend(true)}>
             <Image src={images.user} alt="clear" width={20} height={20} />
             ADD FRIEND
           </button>

@@ -8,6 +8,7 @@ import images from "../../../assets";
 import { convertTime } from "../../../Utils/apiFeature";
 import { Loader } from "../../index";
 
+
 const Chat = ({
   functionName,
   readMessage,
@@ -111,11 +112,13 @@ const Chat = ({
                 <Image
                   src={images.send}
                   alt="file"
+                  style={{ cursor: "pointer"} }
                   width={50}
                   height={50}
-                  onClick={() =>{
-                    console.log("I am running");
-                    functionName({ msg: message, address: chatData.address })
+                  onClick={ () =>{
+                    
+                     functionName({ msg: message, address: chatData.address });
+                    
                   }
                     
                   }
