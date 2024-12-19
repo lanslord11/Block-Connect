@@ -23,7 +23,7 @@ const Faq = () => {
                 margin: "2vmax 0",
                 borderRadius: "50%",
               }}
-              src="https://media.licdn.com/dms/image/D5603AQFUuxQ5vWvAnQ/profile-displayphoto-shrink_400_400/0/1719315778983?e=1725494400&v=beta&t=Fy2QBv1Ci3MpA7_uQ2PX7I38JKAToT6fk19sLLe_ydw"
+              src="piyush.jpeg"
               alt="Founder"
             />
             <h1>Piyush Yadav</h1>

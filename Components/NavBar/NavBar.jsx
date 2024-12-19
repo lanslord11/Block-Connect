@@ -19,7 +19,7 @@ const NavBar = () => {
       link: "alluser",
     },
     {
-      menu: "CHAT",
+      menu: "Chat",
       link: "/chat",
     },
 
